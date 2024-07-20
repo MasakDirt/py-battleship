@@ -106,11 +106,13 @@ class Battleship:
         counter = Counter(str(len(cords)) for cords in self.__field)
         if expected_dict != counter:
             raise NumberOfShipsError(
-                f"In Battleship should be: "
-                f"\n4 single-deck ships, but you have {counter["1"]}"
-                f"\n3 double-deck ships, but you have {counter["2"]}"
-                f"\n2 three-deck ships, but you have {counter["3"]}"
-                f"\n1 four-deck ship, but you have {counter["4"]}"
+                "In Battleship should be: "
+                "\n4 single-deck ships, but you have {}; "
+                "\n3 double-deck ships, but you have {}; "
+                "\n2 three-deck ships, but you have {}; "
+                "\n1 four-deck ship, but you have {};".format(
+                    counter["1"], counter["2"], counter["3"], counter["4"]
+                )
             )
 
     def __repr__(self) -> str:
