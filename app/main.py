@@ -33,8 +33,8 @@ class Deck:
 
 
 class Ship:
-    def __init__(self, coordinates: tuple) -> None:
-        self.__decks = [Deck(coord[0], coord[1]) for coord in coordinates]
+    def __init__(self, coordinates: tuple[tuple[int]]) -> None:
+        self.__decks = [Deck(*coord) for coord in coordinates]
 
     def get_deck(self, row: int, column: int) -> Deck | None:
         for deck in self.__decks:
@@ -53,10 +53,10 @@ class Ship:
 
     def fire(self, row: int, column: int) -> str:
         deck = self.get_deck(row, column)
-        if deck is not None and self.is_last_alive(row, column):
+        if deck and self.is_last_alive(row, column):
             deck.is_alive = False
             return "Sunk!"
-        if deck is not None and deck.is_alive:
+        if deck and deck.is_alive:
             deck.is_alive = False
             return "Hit!"
         return "Miss!"
@@ -69,9 +69,7 @@ class Battleship:
     def __init__(self, ships: list[tuple]) -> None:
         self.__field = {}
         for ship in ships:
-            start = ship[0]
-            end = ship[1]
-            self.__fill_ship_key(start, end)
+            self.__fill_ship_key(*ship)
 
         self._validate_field()
 
